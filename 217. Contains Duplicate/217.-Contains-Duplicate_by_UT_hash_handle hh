@@ -1,0 +1,33 @@
+```c
+struct node{
+    int val;
+    UT_hash_handle hh;
+};
+
+
+struct node *table =NULL;
+
+
+void add(int val){
+    struct node *s;
+    s=malloc(sizeof(struct node));
+    s->val = val;
+    HASH_ADD_INT(table,val,s);
+}
+
+
+bool containsDuplicate(int* nums, int numsSize){
+    table =NULL;
+    for(int i=0;i<numsSize;i++){
+        struct node*check;
+        HASH_FIND_INT(table,&nums[i],check);
+        if(check==NULL){
+            add(nums[i]);
+        }else{
+            return true;
+        }
+    }
+    return false;
+}
+
+```
